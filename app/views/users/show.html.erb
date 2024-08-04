@@ -1,9 +1,22 @@
 <h1><%= @user.name %></h1>
 
-<h2>Created events:</h2>
-<% @user.events.each do |event| %>
-  <h3><%= event.name %></h3>
-  <p><%= event.description %></p>
-  <p>Date: <%= event.date %></p>
-  <p>Location: <%= event.location %></p>
-<% end%>
+<h3>Created events:</h3>
+<ol>
+  <% @user.events.each do |event| %>
+    <li><%= link_to event.name, event %></li>
+  <% end%>
+</ol>
+
+<h3>Attended events:</h3>
+<h4>Future events:</h4>
+<ol>
+  <% @user.attended_events.where("date > ?", Time.now).order(date: :desc).each do |event| %>
+    <li><%= link_to event.name, event %></li>
+  <% end%>
+</ol>
+<h4>Past events:</h4>
+<ol>
+  <% @user.attended_events.where("date < ?", Time.now).order(date: :desc).each do |event| %>
+    <li><%= link_to event.name, event %></li>
+  <% end%>
+</ol>

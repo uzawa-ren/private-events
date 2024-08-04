@@ -44,6 +44,8 @@
     <p class="success"><%= flash[:success] %></p>
     <p class="error"><%= flash[:error] %></p>
 
+    <p style="text-align: right">You are logged in as <%= current_user.name %></p>
+
     <%= yield %>
   </body>
 </html>
