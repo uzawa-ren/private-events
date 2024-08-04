@@ -1,1 +1,14 @@
-<h1>Events<h1>
+<h1>Events</h1>
+
+<h3>Upcoming events:</h3>
+<ul>
+  <% @future_events.each do |event| %>
+    <li><%= link_to event.name, event %></li>
+  <% end %>
+</ul>
+<h3>Past events:</h3>
+<ul>
+  <% @past_events.each do |event| %>
+    <li><%= link_to event.name, event %></li>
+  <% end %>
+</ul>
