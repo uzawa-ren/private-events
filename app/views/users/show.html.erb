@@ -1,3 +1,9 @@
+<% def current_attendance(event)
+     Attendance.find_by(attendee_id: @user.id, event_id: event.id)
+   end
+%>
+
+
 <h1><%= @user.name %></h1>
 
 <h3>Created events:</h3>
@@ -10,13 +16,26 @@
 <h3>Attended events:</h3>
 <h4>Future events:</h4>
 <ol>
-  <% @user.attended_events.where("date > ?", Time.now).order(date: :desc).each do |event| %>
-    <li><%= link_to event.name, event %></li>
+  <% @user.attended_events.where("date > ?", Time.now)
+                          .order(date: :desc)
+                          .each do |event| %>
+    <li>
+      <%= link_to event.name, event %>
+      <% if @user == current_user %>
+        <%= form_with model: current_attendance(event), method: :delete do |form| %>
+          <%= form.hidden_field :attendee_id, value: @user.id %>
+          <%= form.hidden_field :event_id, value: event.id %>
+          <%= form.submit "Cancel your registration to this event" %>
+        <% end %>
+      <% end %>
+    </li>
   <% end%>
 </ol>
 <h4>Past events:</h4>
 <ol>
-  <% @user.attended_events.where("date < ?", Time.now).order(date: :desc).each do |event| %>
+  <% @user.attended_events.where("date < ?", Time.now)
+                          .order(date: :desc)
+                          .each do |event| %>
     <li><%= link_to event.name, event %></li>
   <% end%>
 </ol>

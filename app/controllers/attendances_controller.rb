@@ -14,6 +14,14 @@ class AttendancesController < ApplicationController
     end
   end
 
+  def destroy
+    @attendance = Attendance.find_by(attendance_params)
+    @attendance.destroy
+
+    flash.notice = "You are no longer an attendee of this event."
+    redirect_to user_path(current_user.id), status: :see_other
+  end
+
   private
 
   def attendance_params
