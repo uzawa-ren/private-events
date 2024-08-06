@@ -2,4 +2,6 @@
 
 <%= render "user_form" %>
 
-<%= button_to "Delete Event", @event, method: :delete %>
+<br><br>
+<div>Danger zone:</div>
+<%= button_to "Delete Event", @event, method: :delete, style: "background-color: red" %>

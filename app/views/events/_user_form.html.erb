@@ -1,8 +1,22 @@
 <%= form_with model: @event do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %> <br>
+  <% if @event.errors.any? %>
+    <div style="color: red">
+      <% @event.errors.each do |error| %>
+          <%= error.full_message if error.attribute == :name %>
+      <% end %>
+    </div>
+  <% end %>
   <%= form.label :location %>
   <%= form.text_field :location %> <br>
+    <% if @event.errors.any? %>
+    <div style="color: red">
+      <% @event.errors.each do |error| %>
+          <%= error.full_message if error.attribute == :location %>
+      <% end %>
+    </div>
+  <% end %>
   <%= form.label :date %>
   <%= form.datetime_local_field :date %> <br>
   <%= form.label :description %>

@@ -22,7 +22,6 @@ class EventsController < ApplicationController
       flash[:success] = "Your event has been created."
       redirect_to @event
     else
-      flash.now[:error] = "Your event cannot be created due to errors."
       render :new, status: :unprocessable_entity
     end
   end
@@ -38,7 +37,6 @@ class EventsController < ApplicationController
       flash[:success] = "Your event has been updated."
       redirect_to @event
     else
-      flash.now[:error] = "Your event cannot be updated due to errors."
       render :edit, status: :unprocessable_entity
     end
   end
