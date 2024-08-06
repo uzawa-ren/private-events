@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   
   def index
     @past_events = Event.past
@@ -25,6 +25,31 @@ class EventsController < ApplicationController
       flash.now[:error] = "Your event cannot be created due to errors."
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      flash[:success] = "Your event has been updated."
+      redirect_to @event
+    else
+      flash.now[:error] = "Your event cannot be updated due to errors."
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.attendees.clear
+    @event.destroy
+
+    flash.notice = "The article has been successfully deleted."
+    redirect_to user_path(current_user), status: :see_other
   end
 
   private
