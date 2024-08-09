@@ -1,4 +1,4 @@
-<% def current_attendance(event)
+<% def attendance_for(event)
      Attendance.find_by(attendee_id: @user.id, event_id: event.id)
    end
 %>
@@ -22,7 +22,7 @@
     <li>
       <%= link_to event.name, event %>
       <% if @user == current_user %>
-        <%= form_with model: current_attendance(event), method: :delete do |form| %>
+        <%= form_with model: attendance_for(event), method: :delete do |form| %>
           <%= form.hidden_field :attendee_id, value: @user.id %>
           <%= form.hidden_field :event_id, value: event.id %>
           <%= form.submit "Cancel your registration to this event" %>

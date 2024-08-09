@@ -13,7 +13,7 @@
 <h3>Description:</h3>
 <p><%= @event.description %></p>
 
-<%= form_with model: @attendance do |form| %>
+<%= form_with model: @event.attendances.build do |form| %>
   <%= form.hidden_field :attendee_id, value: current_user.id %>
   <%= form.hidden_field :event_id, value: @event.id %>
   <%= form.submit "Sign up for this event" %>
